@@ -17,8 +17,8 @@ function [vertices,ras] = readLabels(labelFile)
 
 %% Input Control
 
-[~,~,ext] = fileparts(labelFile);
-if ~strcmp(ext, '.label')
+labelInd = strfind(labelFile, 'label');
+if isempty(labelInd)
     error('\nUnrecognized file extension: %s\nA .LABEL file must be provided', ext);
 end
 
