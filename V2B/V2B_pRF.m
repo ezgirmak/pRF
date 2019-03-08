@@ -8,8 +8,8 @@ subject = '146432';
 wbcmd = 'wb_command';
 
 % directories
-root = getenv('ROOT')
-addpath(genpath(root))
+root = getenv('ROOT');
+addpath(genpath(root));
 addpath(genpath([root '/HCPpipelines-3.27.0/global/matlab/gifti-1.6/']))
 paths = createPaths(); % initialize paths structure
 paths.main = pwd();
@@ -30,9 +30,10 @@ opt.cmd = wbcmd; %unix Caret7command used in various functions
 
 % scan options
 
-scanOpt.boldfiletype = 'cifti';
+
+scanOpt.boldfiletype = 'HCP'; %BV if brainvoyager, HCP if HCP, FS is freesurfer
 scanOpt.datatype = '2mm';
-scanOpt.roiPath = fullfile(basepath, 'atlas.mat' );
+scanOpt.roiPath = fullfile(root, 'atlas.mat' );
 scanOpt.roifiletype = 'mat';
 scanOpt.labelindex ={'V1v','V1d','V2v','V2d','V3v','V3d', 'LO1','hV4', 'V3B','V3A'}; %Wang Atlas
 %{'V1','V2','V3','V4'};  % for cifti files, where the number refers to (for example) the Brodmann area, for nifti files number refers to freesurfer color lookuptable
@@ -96,7 +97,7 @@ end
 
 %specify the directories for the stimulus and timecourses
 for scanNum = 1:length(scanStimNames)
-    scanOpt.matPath = fullfile(basepath, 'apertures', scanStimNames{scanNum}); %this particular file is permute(stim, [3 1 2]) and then
+    scanOpt.matPath = fullfile(root, 'apertures', scanStimNames{scanNum}); %this particular file is permute(stim, [3 1 2]) and then
     scanOpt.boldPath =   fullfile(paths.data,scanBoldDir{scanNum}, scanBoldFilenames{scanNum});
     
     scan(scanNum) = createScan(scanOpt, opt); % creating 'scan' structure
