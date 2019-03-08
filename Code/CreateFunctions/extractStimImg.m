@@ -92,5 +92,5 @@ end
 
 %% Organize Output
 
-scan = orderfields(scan, {'matFile', 'funcOf', 'boldFile', 'boldSize', ...
-    'nVols', 'dur', 'TR', 'dt', 't', 'voxID', 'vtc', 'stimImg'});
+% scan = orderfields(scan, {'matFile', 'funcOf', 'boldFile', 'boldSize', ...
+%    'nVols', 'dur', 'TR', 'dt', 't', 'voxID', 'vtc', 'stimImg'});

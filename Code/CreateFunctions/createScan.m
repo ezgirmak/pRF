@@ -180,11 +180,15 @@ for i = 1:length(scanOpt.boldPath)
         case '.vtc' % BrainVoyager
             tmp = createBVScan(scanOpt.boldPath{i}, scanOpt.roiPath);
         case {'.nii', '.gz', '.mgh'} % FreeSurfer
-            tmp = createFreeSurferScan(scanOpt.boldPath{i}, scanOpt.roiPath);
+            if isfield(scanOpt, 'boldfiletype') && strcmp(scanOpt.boldfiletype, 'cifti');
+                tmp = createCiftiScan(scanOpt.boldPath{i}, scanOpt.roiPath, scanOpt);
+            else
+                tmp = createFreeSurferScan(scanOpt.boldPath{i}, scanOpt.roiPath, scanOpt);
+            end
         otherwise
             error('Unrecognized file extension: %s', software{i});
     end
-    
+%     scan = tmp; % save output
     switch stimImgMethod % load stimulus data
         case 'paradigm' % specifying with paradigm sequence
             scan(i) = createStimImg(tmp, scanOpt, i, opt);
